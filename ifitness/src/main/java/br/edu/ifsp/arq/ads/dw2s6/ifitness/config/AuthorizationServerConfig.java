@@ -50,7 +50,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     RegisteredClientRepository registeredClientRepository() {
-    	List<String> allowedRedirects = Arrays.asList("https://oidcdebugger.com/debug");
+    	List<String> allowedRedirects = Arrays.asList("http://localhost:8000/authorized","https://oidcdebugger.com/debug");
     	
         RegisteredClient angularClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())
