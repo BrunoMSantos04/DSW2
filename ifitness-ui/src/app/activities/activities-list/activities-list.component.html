@@ -33,11 +33,11 @@
             </td>
             <td>
               <span class="p-column-title">Distância</span>
-              {{ activity.distance }}
+              {{ activity.distance | number: '1.1-1'}} km
             </td>
             <td>
               <span class="p-column-title">Duração</span>
-              {{ activity.duration }}
+              {{ activity.duration }} min
             </td>
             <td class="col-actions">
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>

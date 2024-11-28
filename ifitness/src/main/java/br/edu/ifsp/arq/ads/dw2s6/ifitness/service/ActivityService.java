@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.ads.dw2s6.ifitness.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -39,6 +40,14 @@ public class ActivityService {
 	public Activity findActivityById(Long id) {
 		Activity activitySaved = activityRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 		return activitySaved;
+	}
+	
+	public List<Activity> findByUser(String email){
+		Optional<User> user = userRepository.findByEmail(email);
+		if(user.isPresent()) {
+			return activityRepository.findByUser(user.get());
+		}
+		return null;
 	}
 
 }

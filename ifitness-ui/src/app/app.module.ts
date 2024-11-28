@@ -10,6 +10,7 @@ import { ActivitiesModule } from './activities/activities.module';
 import { SecurityModule } from './security/security.module';
 import { AuthService } from './security/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     TooltipModule,
     ActivitiesModule,
     SecurityModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

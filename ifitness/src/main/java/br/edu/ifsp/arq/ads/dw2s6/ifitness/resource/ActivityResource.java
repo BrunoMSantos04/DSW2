@@ -38,6 +38,16 @@ public class ActivityResource {
 		return activityRepository.findAll();
 	}
 	
+	@GetMapping("/user/{email}")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_ACTIVITY') and hasAuthority('SCOPE_read')")
+	public ResponseEntity<List<Activity>> finfByUser(@PathVariable String email){
+		List<Activity> activities = activityService.findByUser(email);
+		if(!activities.isEmpty()) {
+			return ResponseEntity.ok(activities);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_SEARCH_ACTIVITY') and hasAuthority('SCOPE_read')")
 	public ResponseEntity<Activity> findById(@PathVariable Long id) {
