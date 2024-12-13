@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthorizedComponent } from './authorized/authorized.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { IfitnessHttpInterceptor } from './ifitness-http-interceptor';
+import { AuthGuard } from './auth.guard';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token')!;
@@ -22,7 +25,13 @@ export function tokenGetter(): string {
     })
   ],
   providers: [
-    JwtHelperService
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: IfitnessHttpInterceptor,
+      multi: true
+    },
+    AuthGuard
   ]
 })
 export class SecurityModule { }

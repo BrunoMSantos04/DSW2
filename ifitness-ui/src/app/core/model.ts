@@ -1,11 +1,8 @@
 import moment from 'moment';
+import { AuthService } from '../security/auth.service';
 
 export class User {
   id!: number;
-
-  constructor(){
-    this.id = 1;
-  }
 }
 
 export class Activity {
@@ -14,7 +11,12 @@ export class Activity {
   date!: Date;
   distance!: number;
   duration!: number;
-  user = new User();
+  user!: User;
+
+  constructor(user_id: number){
+    this.user = new User();
+    this.user.id = user_id
+  }
 
   static toJson(activity: Activity): any {
     return {

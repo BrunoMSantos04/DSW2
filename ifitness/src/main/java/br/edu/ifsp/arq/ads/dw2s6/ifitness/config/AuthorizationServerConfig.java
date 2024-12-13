@@ -63,7 +63,7 @@ public class AuthorizationServerConfig {
                 .scope("read")
                 .scope("write")
                 .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofMinutes(30))
+                        .accessTokenTimeToLive(Duration.ofMinutes(1))
                         .refreshTokenTimeToLive(Duration.ofDays(30))
                         .build())
                 .clientSettings(ClientSettings.builder()
@@ -116,6 +116,7 @@ public class AuthorizationServerConfig {
                 authorities.add(grantedAuthority.getAuthority());
             }
 
+            context.getClaims().claim("user_id", systemUser.getUser().getId());
             context.getClaims().claim("name", systemUser.getUser().getName());
             context.getClaims().claim("authorities", authorities);
         };

@@ -11,6 +11,7 @@ import { SecurityModule } from './security/security.module';
 import { AuthService } from './security/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+import { Dropdown } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,6 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
-    TableModule,
-    TooltipModule,
     ActivitiesModule,
     SecurityModule,
     HttpClientModule,
