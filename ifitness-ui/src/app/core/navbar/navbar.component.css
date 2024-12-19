@@ -1,10 +1,11 @@
 .navbar {
   padding: 20px 0 10px;
-  background-color: #1e94d2;
+  background-color: #28a745;
 }
 
 .navbar-toggle {
   color: #fff;
+  background-color: #28a745;
 }
 
 .navbar-menu {
@@ -56,4 +57,8 @@
 
 .navbar-menuitem a:hover {
   color: #fff;
+}
+
+a{
+  background-color: #3a3633;
 }

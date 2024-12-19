@@ -20,7 +20,7 @@ export class AuthorizedComponent implements OnInit {
       if (params.code) {
         this.auth.getNewAccessTokenWithCode(params.code, params.state)
           .then(()=> {
-            this.route.navigate(['/'])
+            this.route.navigate(['/activities'])
           })
           .catch((e:any) => {
             console.error('Erro no callback', e)

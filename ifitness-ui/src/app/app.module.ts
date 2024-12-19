@@ -12,6 +12,8 @@ import { AuthService } from './security/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { Dropdown } from 'primeng/dropdown';
+import { HomeModule } from './home/home.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { Dropdown } from 'primeng/dropdown';
     ActivitiesModule,
     SecurityModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    HomeModule,
+    UsersModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

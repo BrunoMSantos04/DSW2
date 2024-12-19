@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,10 +37,12 @@ public class User {
 	@Email
 	private String email;
 	@NotNull
+	@Size(min = 6, max = 150)
 	private String password;
 	@NotNull
 	@Column(name = "birth_date")
 	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonProperty("date")
 	private LocalDate dateOfBirth;
 	@NotNull
 	@Enumerated(EnumType.STRING)

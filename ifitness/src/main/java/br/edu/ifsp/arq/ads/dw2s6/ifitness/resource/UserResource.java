@@ -41,9 +41,8 @@ public class UserResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@PreAuthorize("hasAuthority('ROLE_REGISTER_USER') and hasAuthority('SCOPE_write')")
-	public User create(@Valid @RequestBody User user, HttpServletResponse response) {
-		return userRepository.save(user);
+		public User create(@Valid @RequestBody User user, HttpServletResponse response) {
+		return userService.save(user);
 	}
 	
 	@GetMapping("/{id}")

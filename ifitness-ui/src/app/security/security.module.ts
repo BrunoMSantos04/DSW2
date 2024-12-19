@@ -20,7 +20,7 @@ export function tokenGetter(): string {
       config: {
         tokenGetter,
         allowedDomains: [ /localhost:8080/ ],
-        disallowedRoutes: [/\/oauth2\/token/]
+        disallowedRoutes: ['http://localhost:8080/oauth2/token', 'http://localhost:8080/users']
       }
     })
   ],
