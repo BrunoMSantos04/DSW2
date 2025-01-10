@@ -25,6 +25,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import io.micrometer.common.util.StringUtils;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -33,14 +35,25 @@ public class ResourceServerConfig {
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> {
-				auth.requestMatchers("/users").permitAll();
-				auth.anyRequest().authenticated();}
-				)
-				.csrf(AbstractHttpConfigurer::disable)
-				.oauth2ResourceServer(configurer -> configurer
-						.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+			auth.requestMatchers("/users", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
+			auth.anyRequest().authenticated();
+		}).csrf(AbstractHttpConfigurer::disable).oauth2ResourceServer(configurer -> configurer
+				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+		http.logout(logoutConfig -> {
+			logoutConfig.logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
+				String returnTo = httpServletRequest.getParameter("returnTo");
+
+				if (!StringUtils.hasText(returnTo)) {
+					returnTo = "http://localhost:8080";
+				}
+
+				httpServletResponse.setStatus(302);
+				httpServletResponse.sendRedirect(returnTo);
+			});
+		});
 		return http.formLogin(Customizer.withDefaults()).build();
 	}
+
 
 	@Bean
 	JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {

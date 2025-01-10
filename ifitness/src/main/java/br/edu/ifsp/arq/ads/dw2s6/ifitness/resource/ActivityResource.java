@@ -1,8 +1,10 @@
 package br.edu.ifsp.arq.ads.dw2s6.ifitness.resource;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.Activity;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.ActivityRepository;
+import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.filter.ActivityFilter;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.service.ActivityService;
 import jakarta.validation.Valid;
 
@@ -34,8 +37,8 @@ public class ActivityResource {
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_SEARCH_ACTIVITY') and hasAuthority('SCOPE_read')")
-	public List<Activity> list(){
-		return activityRepository.findAll();
+	public Page<Activity> search(ActivityFilter activityFilter, Pageable pageable){
+		return activityService.search(activityFilter, pageable);
 	}
 	
 	@GetMapping("/user/{email}")

@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.ads.dw2s6.ifitness.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.Activity;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.User;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.ActivityRepository;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.UserRepository;
+import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.filter.ActivityFilter;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.service.exception.NonExistentOrInactiveUserException;
 
 @Service
@@ -48,6 +50,10 @@ public class ActivityService {
 			return activityRepository.findByUser(user.get());
 		}
 		return null;
+	}
+	
+	public Page<Activity> search(ActivityFilter activityFilter, Pageable pageable){
+		return activityRepository.filter(activityFilter, pageable);
 	}
 
 }

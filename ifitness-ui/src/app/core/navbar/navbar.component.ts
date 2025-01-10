@@ -7,8 +7,13 @@ import { AuthService } from '../../security/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
   displayingMenu = false;
 
   constructor(public auth: AuthService) { }
+
+  logout() {
+    this.auth.logout();
+  }
 
 }

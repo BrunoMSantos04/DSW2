@@ -144,4 +144,15 @@ export class AuthService {
   }
 
 
+  clearAccessToken(): void {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
+  }
+
+  logout() {
+    this.clearAccessToken();
+    localStorage.clear();
+    window.location.href = 'http://localhost/logout?returnTo=' + 'http://localhost:8000/';
+  }
+
 }

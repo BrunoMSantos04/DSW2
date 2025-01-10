@@ -88,12 +88,26 @@ public class AuthorizationServerConfig {
                         .requireAuthorizationConsent(false)
                         .build())
                 .build();
+        
+        
+        RegisteredClient swaggerClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("swagger-client")
+                .clientSecret("{noop}swagger-secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUris(uris -> uris.addAll(allowedRedirects))
+                .scope("read")
+                .scope("write")
+                .clientSettings(ClientSettings.builder().requireProofKey(true).build())
+                .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofHours(1)).build())
+                .build();
 
 
         return new InMemoryRegisteredClientRepository(
                 Arrays.asList(
                         angularClient,
-                        mobileClient
+                        mobileClient,
+                        swaggerClient
                 )
         );
     }
